@@ -1,0 +1,14 @@
+[
+  {
+    "name": "todo",
+    "title": "К выполнению"
+  },
+  {
+    "name": "inProgress",
+    "title": "В работе"
+  },
+  {
+    "name": "done",
+    "title": "Выполнены"
+  }
+]
