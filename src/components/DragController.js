@@ -122,12 +122,6 @@ export class DragController {
 
         const item = element.closest(this.options.item.selector);
 
-        // this.options.onDrop({
-        //     appendBefore,
-        //     target
-        // })
-
-
         this.options.onDrop({
             originalItem: this.#item,
             target,
