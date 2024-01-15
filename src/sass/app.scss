@@ -1,3 +1,7 @@
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
 .board-list {
   display: flex;
   gap: 10px;
@@ -13,6 +17,10 @@
   display: flex;
   gap: 10px;
   flex-direction: column;
+
+  &__title {
+    margin: 0;
+  }
 }
 
 .board__tasks {
@@ -23,8 +31,13 @@
 
 .task-list {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   padding: 10px;
   gap: 10px;
+
+  border: 1px solid lightgray;
+  border-radius: 5px;
 }
 
 .board__controls {
@@ -63,4 +76,12 @@
   padding: 10px;
   border: 1px solid gray;
   border-radius: 5px;
+  &_hidden {
+    display: none;
+  }
+  &_dragged {
+    background-color: white;
+    position: absolute;
+    z-index: 1;
+  }
 }

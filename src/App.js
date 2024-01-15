@@ -2,6 +2,7 @@ import { HTMLComponent } from './components/HTMLComponent';
 import { BoardList } from './components/BoardList';
 
 import {createElement} from "./util";
+import {DragController} from "./components/DragController";
 
 export class App extends HTMLComponent {
     get template() {
@@ -20,6 +21,19 @@ export class App extends HTMLComponent {
            boards
         }).render();
 
+        const options = {
+            item: {
+                selector: '.task',
+                draggedClassName: 'task_dragged'
+            },
+            target: {
+                selector: '.board'
+            },
+            onDrop: this.boardList.moveTask
+        };
 
+        DragController
+            .of(options)
+            .init();
     }
 }

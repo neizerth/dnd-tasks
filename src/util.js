@@ -9,3 +9,5 @@ export const createElement = (tagName, props = {}, ...children) => appendChildre
     createDOMElement(tagName, props),
     children
 );
+
+export const delay = ms => new Promise(resolve => setTimeout(resolve, ms));

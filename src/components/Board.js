@@ -5,8 +5,19 @@ import {AddTaskWidget} from "./AddTaskWidget";
 
 export class Board extends HTMLComponent {
 
+    is(element) {
+        return this.container === element
+    }
+
+    moveTask(element, before) {
+        return this.taskList.moveTask(element, before);
+    }
+
     get template() {
+        const { title } = this.options;
+
         return createElement('div', { className: 'board' },
+            createElement('h2', { className: 'board__title' }, title ),
             createElement('div', { className: 'board__tasks' }),
             createElement('div', { className: 'board__controls' }),
         );
@@ -18,11 +29,11 @@ export class Board extends HTMLComponent {
         const tasksContainer = this.container.querySelector('.board__tasks');
         const controlsContainer = this.container.querySelector('.board__controls');
 
-        const taskList = TaskList.of(tasksContainer).render()
+        this.taskList = TaskList.of(tasksContainer).render()
 
         AddTaskWidget
             .of(controlsContainer, {
-                onAdd: taskList.addTask
+                onAdd: this.taskList.addTask
             })
             .render();
 
