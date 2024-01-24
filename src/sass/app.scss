@@ -21,6 +21,10 @@ body {
   &__title {
     margin: 0;
   }
+
+  &_dragovered {
+    background: lightyellow;
+  }
 }
 
 .board__tasks {
@@ -83,5 +87,8 @@ body {
     background-color: white;
     position: absolute;
     z-index: 1;
+  }
+  &_dragovered {
+
   }
 }

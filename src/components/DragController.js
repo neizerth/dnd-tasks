@@ -6,12 +6,15 @@ export class DragController {
     #shiftY = 0;
     #_item = null;
     #dragged;
+    #selectedTarget = null;
+    #selectedItem = null;
     constructor(options) {
         this.options = options;
 
         this.#start = this.#start.bind(this);
         this.#stop = this.#stop.bind(this);
         this.#move = this.#move.bind(this);
+        this.#dragover = this.#dragover.bind(this);
     }
 
     static of(options) {
@@ -36,19 +39,19 @@ export class DragController {
     #cloneItem(item) {
         const clone = item.cloneNode(true);
 
+        clone.draggable = true;
         clone.classList.add(this.options.item.draggedClassName);
 
         const itemStyle = this.#cloneItemStyle(item);
 
         Object.assign(clone.style, itemStyle);
 
-        document.body.append(clone)
+        document.body.append(clone);
 
         return clone;
     }
 
     #cloneItemStyle(item) {
-        const px = 'px';
         const { clientWidth, clientHeight } = item;
         const style = getComputedStyle(item);
 
@@ -87,6 +90,28 @@ export class DragController {
         }
         e.preventDefault();
         this.#moveDragged(e);
+    }
+
+    #dragover = (e) => {
+        const item = e.target.closest(this.options.item.selector);
+        const target = e.target.closest(this.options.target.selector);
+
+        if (this.#selectedItem) {
+            this.#selectedItem.classList.remove(this.options.item.dragoverClassName);
+        }
+        if (this.#selectedTarget) {
+            this.#selectedTarget.classList.remove(this.options.target.dragoverClassName);
+        }
+
+        if (item) {
+            item.classList.add(this.options.item.dragoverClassName);
+            this.#selectedItem = item;
+        }
+
+        if (target) {
+            target.classList.add(this.options.target.dragoverClassName);
+            this.#selectedTarget = target;
+        }
     }
 
     #moveDragged(mouseEvent) {
@@ -143,8 +168,9 @@ export class DragController {
 
     init() {
         document.addEventListener('mousedown', this.#start);
-        document.addEventListener('mousemove', this.#move);
-        document.addEventListener('mouseup', this.#stop);
+        // document.addEventListener('mousemove', this.#move);
+        // document.addEventListener('mouseup', this.#stop);
+        document.addEventListener('dragover', this.#dragover);
 
         return this;
     }

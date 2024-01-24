@@ -24,10 +24,12 @@ export class App extends HTMLComponent {
         const options = {
             item: {
                 selector: '.task',
-                draggedClassName: 'task_dragged'
+                draggedClassName: 'task_dragged',
+                dragoverClassName: 'task_dragovered'
             },
             target: {
-                selector: '.board'
+                selector: '.board',
+                dragoverClassName: 'board_dragovered'
             },
             onDrop: this.boardList.moveTask
         };
